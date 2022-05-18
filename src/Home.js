@@ -7,10 +7,12 @@ export default function Home({setInit}){
     const [filmes, setFilmes] = useState([]);
     useEffect(() => {
         const requisicao = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies");
-        requisicao.then(response => {
-            setFilmes(response.data.posterURL);
+        requisicao.then((response) => {
+            console.log(response)
+            setFilmes(response.data);
+            
         });
-        console.log(requisicao);
+        
     },[]);
 
     return(
@@ -20,8 +22,8 @@ export default function Home({setInit}){
             </div>
             <h3 className='selecionar'>Selecione o filme</h3>
             {/* lista de filmes */}
-            <div onClick={()=>setInit(true)} className='listaFilmes'>
-                {filmes.map(filme => <img src={filme}/>)}
+            <div className='listaFilmes'>
+                {filmes.map(filme => <img onClick={()=>setInit(true)} key={filme.title} src={filme.posterURL}/>)}
             </div>
         </div>
     )
