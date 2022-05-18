@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-// import filme from "./assets/filme1.png";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 
 export default function Home({setInit}){
@@ -8,7 +8,6 @@ export default function Home({setInit}){
     useEffect(() => {
         const requisicao = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies");
         requisicao.then((response) => {
-            console.log(response)
             setFilmes(response.data);
             
         });
@@ -23,7 +22,7 @@ export default function Home({setInit}){
             <h3 className='selecionar'>Selecione o filme</h3>
             {/* lista de filmes */}
             <div className='listaFilmes'>
-                {filmes.map(filme => <img onClick={()=>setInit(true)} key={filme.title} src={filme.posterURL}/>)}
+                {filmes.map(filme => <img onClick={()=>setInit(true)} key={`filme ${filme.id}`} src={filme.posterURL}/>)}
             </div>
         </div>
     )
