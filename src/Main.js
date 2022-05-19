@@ -7,15 +7,17 @@ import axios from 'axios';
 export default function Main(){
     const {idFilme} = useParams();
     const [filme, setFilme] = useState([]);
+    const [dias, setDias] = useState([]);
+
     useEffect(() => {
         const requisicao = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`);
         requisicao.then((response) => {
-            console.log(response)
-            setFilme(response.data);
-            
+            setDias(response.data.days);
+            setFilme(response.data)
+            console.log(response.data.days)
         });
-        
     },[]);
+
     return(
         <div>
             <header>
@@ -26,16 +28,18 @@ export default function Main(){
             </header>
 
             <ul>
-                {filme.map(filmeId =>   <div className='listaSessoes'> 
-                                            <p>{filmeId.days.weekday - filmeId.days.date}</p> 
-                                            <div className='hora'>12:00</div>
-                                            <div className='hora'>19:00</div> 
-
+                {dias.map(dia =>   <div className='listaSessoes'> 
+                                            <p>{`${dia.weekday} - ${dia.date}`}</p> 
+                                            <div className='hora'>{`${dia.showtimes[0].name}`}</div>
+                                            <div className='hora'>{`${dia.showtimes[1].name}`}</div>
                                         </div>)}
                 {/* lista de dias */}
+                <div className='espaco'>
+
+                </div>
                 
             </ul>
-            <Footer />
+            <Footer title={filme.title} source={filme.posterURL}/>
 
         </div>
         

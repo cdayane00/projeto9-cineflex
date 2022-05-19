@@ -1,10 +1,12 @@
-import filme from "./assets/filme1.png";
-export default function Footer(){
+import Home from "./Home";
+import React from 'react';
+
+
+export default function Footer({title, source}){
     return(
         <footer className="footer">
-            <img src={filme}/>
-            <p>Enola Holmes</p>
-
+            <img src={source}/>
+            <p>{title}</p>
         </footer>
     )
 }

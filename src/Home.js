@@ -14,6 +14,15 @@ export default function Home({setInit}){
         
     },[]);
 
+    function FilmeId({id,source}){
+        return(
+            <Link to={`/sessoes/${id}`}>
+                <img onClick={()=>setInit(true)} key={`filme ${id}`} src={source}/>
+            </Link>
+        )
+        
+    }
+
     return(
         <div>
             <div className='topo'>
@@ -22,7 +31,7 @@ export default function Home({setInit}){
             <h3 className='selecionar'>Selecione o filme</h3>
             {/* lista de filmes */}
             <div className='listaFilmes'>
-                {filmes.map(filme => <img onClick={()=>setInit(true)} key={`filme ${filme.id}`} src={filme.posterURL}/>)}
+                {filmes.map(filme => <FilmeId id={filme.id} source={filme.posterURL}/>)}
             </div>
         </div>
     )
