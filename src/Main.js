@@ -33,7 +33,6 @@ export default function Main(){
                                             <div className='hora'>{`${dia.showtimes[0].name}`}</div>
                                             <div className='hora'>{`${dia.showtimes[1].name}`}</div>
                                         </div>)}
-                {/* lista de dias */}
                 <div className='espaco'>
 
                 </div>
