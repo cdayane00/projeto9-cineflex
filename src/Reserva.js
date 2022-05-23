@@ -1,86 +1,36 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import styled from 'styled-components';
+import { useState} from 'react';
 
-export default function Reserva(){
-    const {idFilme} = useParams();
-    const [filme, setFilme] = useState([]);
-    const [dias, setDias] = useState([]);
+export default function Reserva({id, assento, disponivel, lugaresEscolhidos, setlugaresEscolhidos, numeroAssento, setnumeroAssento}){
+    
+    const [reserva,setReserva] = useState(false);
 
-    useEffect(() => {
-        const requisicao = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idFilme}/seats`);
-        requisicao.then((response) => {
-            setDias(response.data.days);
-            setFilme(response.data)
-            console.log(response.data.days)
-        });
-    },[]);
-
+    function verifica(){
+        if(disponivel ===false){
+            alert("Assento indisponivel");
+            return;
+        }
+        else{
+            setReserva(!reserva);
+            if(!reserva === true && !lugaresEscolhidos.includes(id)){
+                setlugaresEscolhidos([...lugaresEscolhidos,id]);
+                setnumeroAssento([...numeroAssento,id]);
+            }
+            if(!reserva === false && lugaresEscolhidos.includes(id)){
+                setlugaresEscolhidos([...lugaresEscolhidos].filter((value)=> value != id));
+                setnumeroAssento([...numeroAssento,assento].filter((value) => value != assento));
+            }
+        }
+    }
     return(
-        <div>
-            <div className='topo'>
-                <h1>CINEFLEX</h1>
-            </div>
-            <h3 className='selecionar'>Selecione o(s) assento(s)</h3>
-            <div className='assento'> 
-                <div>01</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>   
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>   
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>   
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>   
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>   
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>   
-                <div>1</div>
-                <div>1</div>      
-            </div>
-            <div className='rodapeAssento'>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div className='rodapeAssento'>
-                <p>Selecionado</p>
-                <p>Disponível</p>
-                <p>Indisponível</p>
-            </div>
-            
-        </div>
-
-    );
+        <ReservaAcento className="circle" disponivel={disponivel} reserva={reserva} onClick={verifica} borderColor={disponivel}>
+            <p>{assento}</p>
+        </ReservaAcento>
+    )
 }
+
+    const ReservaAcento = styled.div`
+        background-color: ${props => props.disponivel === true ? "#C3CFD9" : "#FBE192"};
+        border: 1px solid ${props => props.disponivel === true ? "#808F9D" : "#F7C52B"};
+        background-color: ${props => props.reserva === true ? "#8DD7CF" : ""};
+    `;
