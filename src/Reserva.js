@@ -7,7 +7,7 @@ export default function Reserva({id, assento, disponivel, lugaresEscolhidos, set
 
     function verifica(){
         if(disponivel ===false){
-            alert("Assento indisponivel");
+            alert("Este assendo não está disponivel");
             return;
         }
         else{

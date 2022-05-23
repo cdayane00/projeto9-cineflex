@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from 'react';
 import Reserva from './Reserva';
 import Reservas from './Reservas';
+import Sucesso from './Sucesso';
 
 
 export default function App() {
@@ -14,9 +15,10 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={!init ? <Home setInit={setInit}/> : <Main />} />
+                <Route path="/" element={!init ? <Home setInit={setInit} setReturnButton={returnButton}/> : <Main />} />
                 <Route path="/sessoes/:idFilme" element={<Main />}/>
                 <Route path="/assentos/:idSessao" element={<Reservas ingresso={orderData} setIngresso={setOrderData} setVoltar={setReturnButton}/>}></Route>
+                <Route path="/sucesso" element={<Sucesso orderData={orderData} setOrderData={setOrderData}/>}></Route>
             </Routes> 
         </BrowserRouter>
         

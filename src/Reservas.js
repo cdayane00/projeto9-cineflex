@@ -17,7 +17,7 @@ export default function Reservas({setIngresso, setVoltar}){
         }
         else{
             setIngresso({movie: seats.movie.title, day: seats.day.weekday, data: seats.day.date,time: seats.name, name: inputData.name, cpf: inputData.cpf, tickets: [...numberSeat]})
-            const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-man", 
+            const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", 
                 {
                     ids: [...chosenSeats],
                     name: inputData.name,
@@ -36,7 +36,7 @@ export default function Reservas({setIngresso, setVoltar}){
     const [seats,setSeats] = useState({});
     const [chosenSeats, setChosenSeats] = useState([]);
     const [numberSeat, setNumberSeat] = useState([])
-    const [inputData, setInputData] = useState({name:"", cpf:""}); //{name: "", cpf: ""}
+    const [inputData, setInputData] = useState({name:"", cpf:""});
         
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`);
@@ -84,7 +84,7 @@ export default function Reservas({setIngresso, setVoltar}){
                         </div>
                     </Form>
             </SeatsScreen>
-            <Footer posterURL={seats.movie.posterURL} title={seats.movie.title} sessionData={{weekday: seats.day.weekday, time: seats.name}} />
+            <Footer source={seats.movie.posterURL} title={seats.movie.title} />
         </>
     ) :  <LoadingScreen>
             
@@ -229,13 +229,5 @@ const Form = styled.form`
 `
 
 const LoadingScreen = styled.div`
-//centralizar loading.gif
-position: absolute;
-top: 50%;
-left: 50%;
-margin: -100px 0 0 -100px;
-img {
-width: 200px;
-height:200px;
-}
+
 `

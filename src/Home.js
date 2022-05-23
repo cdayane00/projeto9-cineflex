@@ -3,9 +3,11 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 
 
-export default function Home({setInit}){
+export default function Home({setInit, setReturnButton}){
+
     const [filmes, setFilmes] = useState([]);
     useEffect(() => {
+        
         const requisicao = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies");
         requisicao.then((response) => {
             setFilmes(response.data);
